@@ -4,7 +4,7 @@ Play with Linux kernel modules, for educational purposes
 ## hello
 Example output:
 ```
-./hello.sh
+$ ./hello.sh
 > sudo insmod hello.ko
 > dmesg | tail -1
 [  365.689187] Hello from kernel!
@@ -16,7 +16,7 @@ Example output:
 ## rootkit
 Example output:
 ```
-./rootkit.sh
+$ ./rootkit.sh
 > sudo insmod rootkit.ko
 > dmesg | tail -1
 [  372.014160] Rootkit installed
