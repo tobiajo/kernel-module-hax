@@ -4,6 +4,7 @@
 #include <linux/syscalls.h>
 
 static asmlinkage long (*ref_sys_kill)(int pid, int sig);
+
 static asmlinkage long new_sys_kill(int pid, int sig) {
 	long ret = ref_sys_kill(pid, sig);
 	kuid_t uid;

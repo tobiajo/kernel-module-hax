@@ -1,3 +1,4 @@
+#!/bin/sh
 make > /dev/null 2>&1
 
 echo '> sudo insmod rootkit.ko'
